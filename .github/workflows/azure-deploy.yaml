@@ -1,1 +1,42 @@
+# name: Build and Deploy to Azure Web App
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# env:
+#   ACR_NAME: rgacrd
+#   IMAGE_NAME: ash
+#   WEBAPP_NAME: ashapp
+#   RESOURCE_GROUP: your-resource-group   # optional if needed
+#   TAG: ${{ github.run_number }}
+#   REGISTRY_LOGIN_SERVER: rgacrd.azurecr.io
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+
+#     - name: Log in to Azure
+#       uses: azure/login@v2
+#       with:
+#         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+#     - name: Log in to Azure Container Registry
+#       run: az acr login --name ${{ env.ACR_NAME }}
+
+#     - name: Build and push Docker image
+#       run: |
+#         docker build -t ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} -f dockerfile .
+#         docker push ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+
+#     - name: Deploy to Azure Web App
+#       uses: azure/webapps-deploy@v3
+#       with:
+#         app-name: ${{ env.WEBAPP_NAME }}
+#         images: ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
 
